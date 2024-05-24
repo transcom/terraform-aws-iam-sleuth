@@ -56,22 +56,22 @@ Required environment variable to enable SNS integration is `SNS_TOPIC`.
 
 ## Suggested Deployment Method
 
-Using the Terraform module [terraform-aws-lambda](https://github.com/trussworks/terraform-aws-lambda) you can deploy the code released to this Github repository.
+Using the Terraform module [terraform-aws-lambda](https://github.com/transcom/terraform-aws-lambda) you can deploy the code released to this Github repository.
 
 ```hcl
 module "iam_sleuth" {
-  source                 = "trussworks/lambda/aws"
-  version                = "2.2.0"
+  source                 = "transcom/lambda/aws"
+  version                = "3.0.0"
   name                   = "iam_sleuth"
   handler                = "handler.handler"
   job_identifier         = "iam_sleuth"
-  runtime                = "python3.8"
+  runtime                = "python3.11"
   timeout                = "500"
   role_policy_arns_count = 2
   role_policy_arns = ["${aws_iam_policy.sleuth_policy.arn}",
   "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"]
 
-  github_project  = "trussworks/aws-iam-sleuth"
+  github_project  = "transcom/aws-iam-sleuth"
   github_filename = "deployment.zip"
   github_release  = "v1.0.10"
 
@@ -164,12 +164,12 @@ To run the Python app unittests:
 pytest
 ```
 
-To run the python app locally, using trussworks-ci as example account:
+To run the python app locally, using transcom-ci as example account:
 
-1. Login to the trussworks-ci account
+1. Login to the transcom-ci account
 
    ```shell
-   aws-vault login trussworks-ci
+   aws-vault login transcom-ci
    ```
 
 1. Create test user(s), giving them access keys and optional KeyAutoExire tag
@@ -182,7 +182,7 @@ To run the python app locally, using trussworks-ci as example account:
 1. In the CLI, move to the sleuth subdirectory:
 
    ```shell
-   cd /path/to/trussworks/terraform-aws-iam-sleuth/sleuth
+   cd /path/to/transcom/terraform-aws-iam-sleuth/sleuth
    ```
 
 1. Export the relevant variables:
@@ -212,7 +212,7 @@ To run the python app locally, using trussworks-ci as example account:
 1. Run the app
 
    ```shell
-   aws-vault exec trussworks-ci -- python handler.py
+   aws-vault exec transcom-ci -- python handler.py
    ```
 
 - Example DEBUG output for creation age, notice the 'old' status:

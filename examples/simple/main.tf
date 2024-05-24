@@ -4,18 +4,18 @@
 # No Slack or SNS notifications
 
 module "iam_sleuth" {
-  source                 = "trussworks/lambda/aws"
-  version                = "2.2.3"
+  source                 = "transcom/lambda/aws"
+  version                = "3.0.0"
   name                   = "iam-sleuth"
   handler                = "handler.handler"
   job_identifier         = "test"
-  runtime                = "python3.8"
+  runtime                = "python3.11"
   timeout                = "500"
   role_policy_arns_count = 2
   role_policy_arns = [aws_iam_policy.sleuth_policy.arn,
   "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"]
 
-  github_project  = "trussworks/aws-iam-sleuth"
+  github_project  = "transcom/aws-iam-sleuth"
   github_filename = "deployment.zip"
   github_release  = var.github_release
 
