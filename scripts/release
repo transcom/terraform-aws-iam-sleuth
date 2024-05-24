@@ -14,7 +14,7 @@ readonly GITHUB_USER=$1
 readonly GITHUB_REPO=$2
 readonly NEW_TAG=$3
 
-PUBLIC_BUCKET="trussworks-tools-us-west-2"
+PUBLIC_BUCKET="transcom-tools-us-west-2"
 ZIP_NAME=${ZIP_NAME:-deployment.zip}
 
 TARGET=s3://$PUBLIC_BUCKET/$GITHUB_REPO/$NEW_TAG/$ZIP_NAME
@@ -40,5 +40,5 @@ if [[ -n "${CIRCLECI+x}" ]]; then
               export AWS_SESSION_TOKEN
     aws s3 cp "$ZIP_NAME" "$TARGET" --sse AES256
 else
-    AWS_VAULT_KEYCHAIN_NAME=login aws-vault exec trussworks-prod -- aws s3 cp "$ZIP_NAME" "$TARGET" --sse AES256
+    AWS_VAULT_KEYCHAIN_NAME=login aws-vault exec transcom-prod -- aws s3 cp "$ZIP_NAME" "$TARGET" --sse AES256
 fi
